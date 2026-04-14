@@ -1,0 +1,43 @@
+name: Release Slides (Zenodo-ready)
+
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Extract version
+        id: version
+        run: echo "VERSION=${GITHUB_REF_NAME}" >> $GITHUB_ENV
+
+      - name: Compile LaTeX (Beamer)
+        uses: xu-cheng/latex-action@v3
+        with:
+          root_file: slides.tex
+          working_directory: 2026/ia-geografia-ufv
+          latexmk_use_xelatex: true
+
+      - name: Wait for file sync
+        run: sleep 10
+
+      - name: Verify PDF exists
+        run: ls -lh 2026/ia-geografia-ufv/
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ env.VERSION }}
+          name: "Slides ${{ env.VERSION }}"
+          files: 2026/ia-geografia-ufv/slides.pdf
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
