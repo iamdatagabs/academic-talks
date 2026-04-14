@@ -84,6 +84,7 @@ Este repositório tem como objetivos:
 ## 🧑‍🔬 Perfil acadêmico
 
 **Gabriel Passos**
+ORCID: https://orcid.org/0000-0001-5813-7462
 
 - Doutorando em Ciência da Computação – PPGIa/PUCPR  
 - Mestre em Computação Aplicada – PPGCA/UEPG  
