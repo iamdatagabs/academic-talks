@@ -13,36 +13,43 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
+      # 1. Checkout
+      - name: Checkout repository
         uses: actions/checkout@v4
 
-      # 1. Build LaTeX FORÇANDO output no root
-      - name: Compile LaTeX
+      # 2. Compilar PDF FINAL (não depende do CI)
+      - name: Compile LaTeX (FINAL BUILD)
         uses: xu-cheng/latex-action@v3
         with:
           root_file: 2026/ia-geografia-ufv/slides.tex
           latexmk_use_xelatex: true
 
-      # 2. DEBUG REAL (onde o PDF foi parar)
+      # 3. Debug: localizar PDF
       - name: Find PDF
         run: find . -name "*.pdf"
 
-      # 3. Mover PDF para raiz (GARANTIA ABSOLUTA)
-      - name: Move PDF to root
+      # 4. Garantia forte de existência
+      - name: Verify PDF exists
         run: |
-          mkdir -p release_files
-          cp $(find . -name "slides.pdf") release_files/slides.pdf
+          FILE="2026/ia-geografia-ufv/slides.pdf"
+          if [ ! -f "$FILE" ]; then
+            echo "❌ PDF not found!"
+            exit 1
+          fi
+          echo "✅ PDF found"
 
-      # 4. Verificação forte
-      - name: Verify PDF
-        run: ls -lh release_files/
-
-      # 5. Criar release com caminho garantido
-      - name: Create Release
+      # 5. Criar Release (Zenodo captura aqui)
+      - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ github.ref_name }}
           name: "Slides ${{ github.ref_name }}"
-          files: release_files/slides.pdf
+          body: |
+            📄 Academic Slides Release
+            👤 Author: Gabriel Passos
+            🔗 ORCID: https://orcid.org/0000-0001-5813-7462
+            📦 Auto-generated release for Zenodo DOI
+          files: |
+            2026/ia-geografia-ufv/slides.pdf
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
