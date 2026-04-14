@@ -1,4 +1,4 @@
-name: Release Slides (Zenodo-ready + ORCID)
+name: Release Slides (Zenodo-ready)
 
 on:
   push:
@@ -13,71 +13,36 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # 1. Checkout do repositório
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      # 1. Checkout
+      - uses: actions/checkout@v4
 
-      # 2. Instalar LaTeX e compilar PDF
-      - name: Compile LaTeX (Beamer)
+      # 2. Build LaTeX
+      - name: Compile LaTeX
         uses: xu-cheng/latex-action@v3
         with:
           root_file: slides.tex
           working_directory: 2026/ia-geografia-ufv
           latexmk_use_xelatex: true
 
-      # 3. Debug: listar arquivos gerados
-      - name: List output files
-        run: ls -lh 2026/ia-geografia-ufv/
+      # 3. DEBUG CRÍTICO (vamos ver onde o PDF realmente está)
+      - name: Find PDF location
+        run: find . -name "*.pdf"
 
-      # 4. Garantia forte de existência do PDF
+      # 4. Garantir existência (fail fast)
       - name: Verify PDF exists
         run: |
-          FILE="2026/ia-geografia-ufv/slides.pdf"
-          if [ ! -f "$FILE" ]; then
-            echo "❌ ERROR: PDF not found at $FILE"
+          if [ ! -f "2026/ia-geografia-ufv/slides.pdf" ]; then
+            echo "PDF not found!"
             exit 1
           fi
-          echo "✅ PDF successfully generated"
 
-      # 5. Pequena estabilização (evita race condition GitHub FS)
-      - name: Sync delay
-        run: sleep 5
-
-      # 6. Criar CITATION.cff dinamicamente com ORCID (opcional seguro)
-      - name: Generate CITATION.cff
-        run: |
-          cat <<EOF > CITATION.cff
-          cff-version: 1.2.0
-          title: "Slides - IA em Geografia"
-          message: "If you use this material, please cite it."
-          type: software
-
-          authors:
-            - family-names: Passos
-              given-names: Gabriel
-              orcid: "https://orcid.org/0000-0001-5813-7462"
-
-          version: ${{ github.ref_name }}
-          date-released: $(date +%Y-%m-%d)
-
-          repository-code: "https://github.com/iamdatagabs/academic-talks"
-          EOF
-
-      # 7. Criar Release no GitHub (Zenodo captura aqui)
-      - name: Create GitHub Release
+      # 5. Criar release com path ABSOLUTO garantido
+      - name: Create Release
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ github.ref_name }}
           name: "Slides ${{ github.ref_name }}"
-          body: |
-            📄 Academic Slides Release
-            👤 Author: Gabriel Passos
-            🔗 ORCID: https://orcid.org/0000-0001-5813-7462
-            📦 Auto-generated release for Zenodo DOI
-
           files: |
             2026/ia-geografia-ufv/slides.pdf
-            CITATION.cff
-
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
