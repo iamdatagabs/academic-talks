@@ -1,26 +1,47 @@
 # 🎓 Academic Talks – Gabriel Passos
 
-![Build Status](https://github.com/iamdatagabs/academic-talks/actions/workflows/ci.yml/badge.svg)
+![Build Status](https://github.com/SEU_USUARIO/SEU_REPO/actions/workflows/ci.yml/badge.svg)
 [![DOI](https://zenodo.org/badge/DOI.svg)](https://zenodo.org/)
 
 ---
 
-## 📌 Sobre o repositório
+## 🧠 Sobre este repositório
 
-Este repositório reúne minhas **apresentações acadêmicas e palestras públicas**, organizadas como parte das minhas atividades de pesquisa, ensino e divulgação científica.
+Este repositório reúne minhas **apresentações acadêmicas, seminários e palestras científicas**, desenvolvidas no contexto de atividades de pesquisa, ensino e extensão.
 
-O objetivo é promover:
-
-- 📢 Disseminação científica aberta
-- 🧠 Comunicação de pesquisas em andamento
-- 🎓 Suporte a disciplinas e eventos acadêmicos
-- 🔁 Reprodutibilidade e transparência científica
+Seu objetivo é apoiar a **ciência aberta**, a **disseminação do conhecimento** e a **reprodutibilidade de materiais acadêmicos**, especialmente na interface entre Computação, Geociências e Saúde.
 
 ---
 
-## 🧭 Estrutura
+## 🧪 Linhas de pesquisa
 
-As apresentações estão organizadas por ano e tema, conforme o exemplo abaixo:
+Minha atuação acadêmica e científica concentra-se em abordagens interdisciplinares envolvendo ciência de dados e sistemas complexos:
+
+- 🌍 Inteligência Artificial aplicada a sistemas geográficos e ambientais
+- 🌱 Espectroscopia e modelagem de propriedades do solo.
+- 🧬 Informática Médica e análise de dados em saúde
+- 🤖 Machine Learning e Deep Learning em dados estruturados e não estruturados
+- ⚡ Modelagem computacional aplicada à integração ambiente–saúde
+
+---
+
+## ⚙️ Pipeline de ciência aberta
+
+Este repositório implementa um fluxo automatizado de produção e divulgação científica:
+
+- 📄 Desenvolvimento de apresentações em LaTeX (Beamer)
+- ⚙️ Compilação automatizada via GitHub Actions
+- 📦 Geração contínua de PDFs versionados
+- 🚀 Publicação automática de releases acadêmicos
+- 📚 Arquivamento científico via Zenodo com DOI permanente
+
+Esse pipeline garante **rastreabilidade, versionamento e preservação acadêmica** dos materiais produzidos.
+
+---
+
+## 📂 Estrutura do repositório
+
+As apresentações são organizadas por ano e tema:
 
 2026/
 └── ia-geografia-ufv/
@@ -31,51 +52,53 @@ As apresentações estão organizadas por ano e tema, conforme o exemplo abaixo:
 └── README.md
 
 
----
-
-## 🧪 Áreas de pesquisa
-
-- 🌍 Geografia e Pensamento Geográfico
-- 🤖 Machine Learning
-- 🧬 IA aplicada à saúde e análise de dados biomédicos
-- ⚡ Modelagem computacional
+Cada diretório corresponde a uma apresentação independente, contendo código-fonte, referências e materiais complementares.
 
 ---
 
-## ⚙️ Pipeline automatizado
+## 📦 Releases e citação acadêmica
 
-Este repositório utiliza GitHub Actions para:
+Cada versão publicada do repositório gera automaticamente:
 
-- Compilar automaticamente apresentações em LaTeX (Beamer)
-- Gerar PDFs a cada atualização
-- Criar releases versionados automaticamente
-- Integrar com Zenodo para arquivamento científico
+- 📌 Release versionado no GitHub
+- 📄 Arquivo PDF da apresentação
+- 📚 Arquivamento no Zenodo
+- 🔗 DOI permanente para citação acadêmica
+
+Após o primeiro release, o DOI será automaticamente atribuído e poderá ser utilizado para referência formal em trabalhos científicos.
 
 ---
 
-## 📦 Releases e DOI
+## 🎯 Objetivos científicos e acadêmicos
 
-Cada versão publicada é automaticamente arquivada no Zenodo, gerando um **DOI permanente** para citação acadêmica.
+Este repositório tem como objetivos:
 
-👉 Assim que o primeiro release for criado, o DOI aparecerá aqui.
+- Promover ciência aberta e acessível
+- Registrar e versionar produções acadêmicas
+- Apoiar atividades de ensino e extensão
+- Facilitar colaboração científica e reprodutibilidade
+- Servir como portfólio acadêmico estruturado
+
+---
+
+## 🧑‍🔬 Perfil acadêmico
+
+**Gabriel Passos**
+
+- Doutorando em Ciência da Computação – PPGIa/PUCPR  
+- Mestre em Computação Aplicada – PPGCA/UEPG  
+- Bacharel em Geografia – UFV  
+
+- Pesquisador em Informática Médica – Pontifícia Universidade Católica do Paraná (PUCPR)  
+- Pesquisador em Inteligência Artificial aplicada às Geociências – Universidade Federal de Viçosa (UFV)  
+- Professor do Ensino Superior – Centro Universitário de Maringá (UniCesumar)
 
 ---
 
 ## 📄 Licença
 
-Este projeto está licenciado sob:
+Este repositório está licenciado sob:
 
-**Creative Commons Attribution 4.0 (CC BY 4.0)**  
-ou MIT License (dependendo do conteúdo de cada apresentação)
+**Creative Commons Attribution 4.0 (CC BY 4.0)**
 
----
-
-## 👤 Autor
-
-**Gabriel Passos**  
-Doutorando em Ciência da Computação (PPGIa/PUCPR)
-MSc. em Computação Aplicada (PPGCA/UEPG)
-Bacharel em Geografia (UFV)
-Pesquisador em Informática Médica - Pontifícia Universidade Católica do Paraná (PUCPR)
-Pesquisador em Inteligência Artificial aplicada às Geociências - Universidade Federal de Viçosa (UFV)
-Professor do Ensino Superior - Centro Universitário de Maringá (UniCesumar)
+Permitindo reutilização, adaptação e distribuição mediante atribuição adequada ao autor.
