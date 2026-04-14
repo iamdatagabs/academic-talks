@@ -17,36 +17,36 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # 2. Compilar LaTeX (garantido)
+      # 2. Compilar LaTeX (Beamer)
       - name: Compile LaTeX (Beamer)
         uses: xu-cheng/latex-action@v3
         with:
           root_file: 2026/ia-geografia-ufv/slides.tex
           latexmk_use_xelatex: true
 
-      # 3. Debug completo (descobre onde o PDF realmente está)
+      # 3. Debug file tree
       - name: Debug file tree
         run: find . -type f
 
-      # 4. Criar pasta de release padronizada
+      # 4. Preparar assets da release (CORRIGIDO)
       - name: Prepare release assets
         run: |
           mkdir -p release
-          PDF_PATH=$(find . -name "slides.pdf" | head -n 1)
 
-          if [ -z "$PDF_PATH" ]; then
-            echo "❌ slides.pdf not found"
+          if [ ! -f "slides.pdf" ]; then
+            echo "❌ slides.pdf not found in root"
+            find . -name "*.pdf"
             exit 1
           fi
 
-          echo "✅ Found PDF at: $PDF_PATH"
-          cp "$PDF_PATH" release/slides.pdf
+          echo "✅ Found slides.pdf in root"
+          cp slides.pdf release/slides.pdf
 
-      # 5. Verificação forte
+      # 5. Verificação
       - name: Verify release assets
         run: ls -lh release/
 
-      # 6. Criar Release (ZENODO CAPTURA AQUI)
+      # 6. Criar GitHub Release (Zenodo captura aqui)
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
@@ -55,7 +55,7 @@ jobs:
           body: |
             📄 Presentation UFV
             👤 Author: Gabriel Passos
-            🔗 ORCID: https://orcid.org/0000-0000-0000-0000
+            🔗 ORCID: https://orcid.org/0000-0001-5813-7462
             📦 Auto-generated release for Zenodo DOI
           files: |
             release/slides.pdf
