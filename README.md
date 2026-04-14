@@ -1,5 +1,3 @@
-# academic-talks
-
 # 🎓 Academic Talks – Gabriel Passos
 
 ![Build Status](https://github.com/iamdatagabs/academic-talks/actions/workflows/ci.yml/badge.svg)
