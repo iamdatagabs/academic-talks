@@ -1,0 +1,42 @@
+name: Build & Release Beamer Slides
+
+on:
+  push:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Compile LaTeX (Beamer)
+        uses: xu-cheng/latex-action@v3
+        with:
+          root_file: slides.tex
+          working_directory: 2026/ia-geografia-ufv
+          latexmk_use_xelatex: true
+
+      - name: Upload PDF artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: slides-pdf
+          path: 2026/ia-geografia-ufv/slides.pdf
+
+      - name: Create Release Tag
+        id: tag
+        run: |
+          echo "TAG=v$(date +'%Y.%m.%d-%H%M')" >> $GITHUB_OUTPUT
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        if: github.ref == 'refs/heads/main'
+        with:
+          tag_name: ${{ steps.tag.outputs.TAG }}
+          name: "Presentation ${{ steps.tag.outputs.TAG }}"
+          files: 2026/ia-geografia-ufv/slides.pdf
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
