@@ -1,12 +1,9 @@
-name: Build & Release Beamer Slides
+name: CI - Build Check
 
 on:
   push:
-    branches: [ "main" ]
-  workflow_dispatch:
-
-permissions:
-  contents: write
+    branches: ["main"]
+  pull_request:
 
 jobs:
   build:
@@ -16,24 +13,8 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Compile LaTeX (Beamer)
+      - name: Compile LaTeX (test only)
         uses: xu-cheng/latex-action@v3
         with:
-          root_file: slides.tex
-          working_directory: 2026/ia-geografia-ufv
+          root_file: 2026/ia-geografia-ufv/slides.tex
           latexmk_use_xelatex: true
-
-      - name: Upload PDF artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: slides-pdf
-          path: 2026/ia-geografia-ufv/slides.pdf
-
-      - name: Create GitHub Release
-        uses: softprops/action-gh-release@v2
-        with:
-          tag_name: v${{ github.run_number }}
-          name: "Presentation ${{ github.run_number }}"
-          files: 2026/ia-geografia-ufv/slides.pdf
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
