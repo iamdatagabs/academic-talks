@@ -13,36 +13,36 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # 1. Checkout
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
 
-      # 2. Build LaTeX
+      # 1. Build LaTeX FORÇANDO output no root
       - name: Compile LaTeX
         uses: xu-cheng/latex-action@v3
         with:
-          root_file: slides.tex
-          working_directory: 2026/ia-geografia-ufv
+          root_file: 2026/ia-geografia-ufv/slides.tex
           latexmk_use_xelatex: true
 
-      # 3. DEBUG CRÍTICO (vamos ver onde o PDF realmente está)
-      - name: Find PDF location
+      # 2. DEBUG REAL (onde o PDF foi parar)
+      - name: Find PDF
         run: find . -name "*.pdf"
 
-      # 4. Garantir existência (fail fast)
-      - name: Verify PDF exists
+      # 3. Mover PDF para raiz (GARANTIA ABSOLUTA)
+      - name: Move PDF to root
         run: |
-          if [ ! -f "2026/ia-geografia-ufv/slides.pdf" ]; then
-            echo "PDF not found!"
-            exit 1
-          fi
+          mkdir -p release_files
+          cp $(find . -name "slides.pdf") release_files/slides.pdf
 
-      # 5. Criar release com path ABSOLUTO garantido
+      # 4. Verificação forte
+      - name: Verify PDF
+        run: ls -lh release_files/
+
+      # 5. Criar release com caminho garantido
       - name: Create Release
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ github.ref_name }}
           name: "Slides ${{ github.ref_name }}"
-          files: |
-            2026/ia-geografia-ufv/slides.pdf
+          files: release_files/slides.pdf
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
